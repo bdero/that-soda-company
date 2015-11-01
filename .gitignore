@@ -3,8 +3,11 @@ nbproject/private/
 *.so
 
 # Ignore generated build files
-nbproject/build-impl.xml
-nbproject/mobile-impl.xml
-nbproject/genfiles.properties
-mobile/build.xml
-mobile/local.properties
+/nbproject/build-impl.xml
+/nbproject/genfiles.properties
+/dist/
+/mobile/local.properties
+/mobile/libs/
+/mobile/gen/
+/mobile/bin/
+/mobile/assets/META-INF/
