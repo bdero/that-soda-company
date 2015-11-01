@@ -1,3 +1,10 @@
 build/
 nbproject/private/
 *.so
+
+# Ignore generated build files
+nbproject/build-impl.xml
+nbproject/mobile-impl.xml
+nbproject/genfiles.properties
+mobile/build.xml
+mobile/local.properties
