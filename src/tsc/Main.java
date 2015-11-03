@@ -1,17 +1,13 @@
 package tsc;
 
 import com.jme3.app.DebugKeysAppState;
-import com.jme3.app.FlyCamAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Box;
 
 /**
  * test
@@ -27,7 +23,7 @@ public class Main extends SimpleApplication {
     }
 
     public Main() {
-        super(new StatsAppState(), new FlyCamAppState(), new DebugKeysAppState());
+        super(new StatsAppState(), new DebugKeysAppState());
     }
 
     @Override
@@ -52,15 +48,6 @@ public class Main extends SimpleApplication {
         camera.setFrustum(1, 1000, -hFieldWidth, hFieldWidth, hFieldHeight, -hFieldHeight);
         camera.update();
         camera.setLocation(new Vector3f(hFieldWidth, hFieldHeight, 500));
-
-        Box b = new Box(10, 10, 10);
-        Geometry geom = new Geometry("Box", b);
-
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        geom.setMaterial(mat);
-
-        rootNode.attachChild(geom);
     }
 
     @Override
