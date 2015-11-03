@@ -1,5 +1,7 @@
 package tsc;
 
+import tsc.engine.Scene;
+
 import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -16,6 +18,7 @@ import com.jme3.renderer.RenderManager;
 public class Main extends SimpleApplication {
 
     private FilterPostProcessor fpp;
+    private Scene testState;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -24,6 +27,7 @@ public class Main extends SimpleApplication {
 
     public Main() {
         super(new StatsAppState(), new DebugKeysAppState());
+        System.out.println("OPERATING SYSTEM: " + System.getProperty("os.name"));
     }
 
     @Override
@@ -48,11 +52,22 @@ public class Main extends SimpleApplication {
         camera.setFrustum(1, 1000, -hFieldWidth, hFieldWidth, hFieldHeight, -hFieldHeight);
         camera.update();
         camera.setLocation(new Vector3f(hFieldWidth, hFieldHeight, 500));
+
+        testState = new Scene(fpp);
+        stateManager.attach(testState);
     }
+
+    private float time = 0;
 
     @Override
     public void simpleUpdate(float tpf) {
-        //TODO: add update code
+        if (time >= 0) {
+            time += tpf;
+            if (time > 5) {
+                time = -1;
+                testState.transition(new Scene(fpp));
+            }
+        }
     }
 
     @Override
