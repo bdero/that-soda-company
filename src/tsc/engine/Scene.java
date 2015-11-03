@@ -8,7 +8,8 @@ package tsc.engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.renderer.Camera;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.FadeFilter;
 
 /**
  *
@@ -20,26 +21,40 @@ public class Scene extends AbstractAppState {
     private AppStateManager stateManager;
     private Scene nextScene;
 
-    private boolean transitioning = false;
-    private float screenFade = 1;
+    private FadeFilter fade;
+    private boolean fadeIn;
 
-    @Override
-    public void initialize(AppStateManager stateManager, Application app) {
+    public void initialize(AppStateManager stateManager, Application app, FilterPostProcessor fpp) {
         super.initialize(stateManager, app);
+
         this.app = app;
         this.stateManager = stateManager;
+
+        fade = new FadeFilter(1.5f);
+        fade.setValue(0);
+        fade.fadeIn();
+
+        fadeIn = true;
     }
 
     @Override
     public void update(float tpf) {
-        Camera camera = app.getCamera();
+        float fadeValue = fade.getValue();
+
+        if (fadeValue == 0) {
+            fadeIn = false;
+        }
+
+        if (!fadeIn && fadeValue == 1) {
+            stateManager.detach(this);
+        }
 
         super.update(tpf);
     }
 
     public void transition(Scene nextScene) {
         this.nextScene = nextScene;
-        transitioning = true;
+        fade.fadeOut();
     }
 
     @Override
