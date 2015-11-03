@@ -7,6 +7,7 @@ import com.jme3.app.StatsAppState;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
@@ -17,6 +18,8 @@ import com.jme3.scene.shape.Box;
  * @author normenhansen
  */
 public class Main extends SimpleApplication {
+
+    private FilterPostProcessor fpp;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -29,6 +32,13 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
+        // Create the global post processing filter.
+        fpp = new FilterPostProcessor(assetManager);
+        viewPort.addProcessor(fpp);
+
+        // Set the background color
+        viewPort.setBackgroundColor(ColorRGBA.White);
+
         // Setup the camera to be orthographic and encapsulate a playing field with width 0 to 100, and scale the
         // height accordingly.
 
