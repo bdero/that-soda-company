@@ -7,7 +7,6 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 
@@ -17,7 +16,6 @@ import com.jme3.renderer.RenderManager;
  */
 public class Main extends SimpleApplication {
 
-    private FilterPostProcessor fpp;
     private Scene testState;
 
     public static void main(String[] args) {
@@ -32,10 +30,6 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        // Create the global post processing filter.
-        fpp = new FilterPostProcessor(assetManager);
-        viewPort.addProcessor(fpp);
-
         // Set the background color
         viewPort.setBackgroundColor(ColorRGBA.White);
 
@@ -53,7 +47,7 @@ public class Main extends SimpleApplication {
         camera.update();
         camera.setLocation(new Vector3f(hFieldWidth, hFieldHeight, 500));
 
-        testState = new Scene(fpp);
+        testState = new Scene();
         stateManager.attach(testState);
     }
 
@@ -65,7 +59,7 @@ public class Main extends SimpleApplication {
             time += tpf;
             if (time > 5) {
                 time = -1;
-                testState.transition(new Scene(fpp));
+                testState.transition(new Scene());
             }
         }
     }
