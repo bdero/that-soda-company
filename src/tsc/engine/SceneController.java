@@ -27,8 +27,9 @@ public class SceneController {
     private Scene currentScene;
     private Scene nextScene;
 
-    private Material fadeMat;
-    float fadeAlpha;
+    private ColorRGBA fadeColor;
+
+    private boolean transitioning = false;
 
     public SceneController(AppStateManager stateManager, Application app, Scene initialScene) {
         this.stateManager = stateManager;
@@ -39,8 +40,12 @@ public class SceneController {
     }
 
     public void update(float tpf) {
-        fadeMat.setColor("Color", new ColorRGBA(0, 0, 0, fadeAlpha));
-        currentScene.update(tpf);
+        int sign = transitioning ? 1 : -1;
+        fadeColor.a = Math.min(1, Math.max(0, fadeColor.a + 1*sign*tpf));
+
+        if (transitioning && fadeColor.a == 1) {
+            swapScene();
+        }
     }
 
     public void render(RenderManager rm) {
@@ -52,13 +57,14 @@ public class SceneController {
         Quad fadeQuad = new Quad(guiCam.getWidth(), guiCam.getHeight());
         Geometry fadeLayer = new Geometry("TransitionFade", fadeQuad);
 
-        fadeMat = new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        Material fadeMat = new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         fadeMat.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
         fadeLayer.setMaterial(fadeMat);
 
-        app.getGuiNode().attachChild(fadeLayer);
+        fadeColor = new ColorRGBA(0, 0, 0, 1);
+        fadeMat.setColor("Color", fadeColor);
 
-        fadeAlpha = 1;
+        app.getGuiNode().attachChild(fadeLayer);
     }
 
     private void swapScene() {
@@ -74,10 +80,13 @@ public class SceneController {
             nextScene = null;
 
             stateManager.attach(currentScene);
+
+            transitioning = false;
         }
     }
 
     public void transition(Scene nextScene) {
         this.nextScene = nextScene;
+        transitioning = true;
     }
 }
