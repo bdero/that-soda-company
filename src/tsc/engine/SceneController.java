@@ -6,7 +6,15 @@
 package tsc.engine;
 
 import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.material.Material;
+import com.jme3.material.RenderState;
+import com.jme3.math.ColorRGBA;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.RenderManager;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.shape.Quad;
 
 /**
  * The glue between scenes.
@@ -14,20 +22,43 @@ import com.jme3.app.state.AppStateManager;
  */
 public class SceneController {
     private AppStateManager stateManager;
-    private Application app;
+    private SimpleApplication app;
 
     private Scene currentScene;
     private Scene nextScene;
 
+    private Material fadeMat;
+    float fadeAlpha;
+
     public SceneController(AppStateManager stateManager, Application app, Scene initialScene) {
         this.stateManager = stateManager;
-        this.app = app;
+        this.app = (SimpleApplication)app;
         this.nextScene = initialScene;
-        this.swapScene();
+        swapScene();
+        initFade();
     }
 
     public void update(float tpf) {
+        fadeMat.setColor("Color", new ColorRGBA(0, 0, 0, fadeAlpha));
         currentScene.update(tpf);
+    }
+
+    public void render(RenderManager rm) {
+    }
+
+    private void initFade() {
+        Camera guiCam = app.getGuiViewPort().getCamera();
+
+        Quad fadeQuad = new Quad(guiCam.getWidth(), guiCam.getHeight());
+        Geometry fadeLayer = new Geometry("TransitionFade", fadeQuad);
+
+        fadeMat = new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        fadeMat.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+        fadeLayer.setMaterial(fadeMat);
+
+        app.getGuiNode().attachChild(fadeLayer);
+
+        fadeAlpha = 1;
     }
 
     private void swapScene() {

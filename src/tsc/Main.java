@@ -60,6 +60,6 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleRender(RenderManager rm) {
-        //TODO: add render code
+        sceneController.render(rm);
     }
 }
