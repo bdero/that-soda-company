@@ -8,8 +8,8 @@ package tsc.engine;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.FadeFilter;
+import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
 
 /**
  *

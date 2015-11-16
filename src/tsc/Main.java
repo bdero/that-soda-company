@@ -1,7 +1,5 @@
 package tsc;
 
-import tsc.engine.Scene;
-
 import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -9,6 +7,8 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
+import tsc.engine.SceneController;
+import tsc.engine.Scene;
 
 /**
  * test
@@ -16,7 +16,7 @@ import com.jme3.renderer.RenderManager;
  */
 public class Main extends SimpleApplication {
 
-    private Scene testState;
+    private SceneController sceneController;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -47,21 +47,15 @@ public class Main extends SimpleApplication {
         camera.update();
         camera.setLocation(new Vector3f(hFieldWidth, hFieldHeight, 500));
 
-        testState = new Scene();
-        stateManager.attach(testState);
+        sceneController = new SceneController(stateManager, this, new Scene());
+
     }
 
     private float time = 0;
 
     @Override
     public void simpleUpdate(float tpf) {
-        if (time >= 0) {
-            time += tpf;
-            if (time > 5) {
-                time = -1;
-                testState.transition(new Scene());
-            }
-        }
+        sceneController.update(tpf);
     }
 
     @Override
