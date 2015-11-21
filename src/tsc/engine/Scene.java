@@ -15,9 +15,8 @@ import com.jme3.app.state.AppStateManager;
  */
 public class Scene extends AbstractAppState {
 
-    private Application app;
-    private AppStateManager stateManager;
-    private Scene nextScene;
+    protected Application app;
+    protected AppStateManager stateManager;
 
     public Scene() {
         super();
@@ -33,23 +32,6 @@ public class Scene extends AbstractAppState {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-    }
-
-    public void transition(Scene nextScene) {
-        this.nextScene = nextScene;
-    }
-
-    @Override
-    public void cleanup() {
-        if (nextScene == null) {
-            // Kill the application if no next state was specified.
-            app.stop();
-        } else {
-            // Initialize the next scene
-            stateManager.attach(nextScene);
-        }
-
-        super.cleanup();
     }
 
 }
