@@ -25,7 +25,6 @@ public class Main extends SimpleApplication {
 
     public Main() {
         super(new StatsAppState(), new DebugKeysAppState());
-        System.out.println("OPERATING SYSTEM: " + System.getProperty("os.name"));
     }
 
     @Override
