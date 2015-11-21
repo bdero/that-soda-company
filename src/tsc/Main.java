@@ -9,6 +9,7 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import tsc.engine.SceneController;
 import tsc.engine.Scene;
+import tsc.scenes.MenuScene;
 
 /**
  * test
@@ -46,7 +47,7 @@ public class Main extends SimpleApplication {
         camera.update();
         camera.setLocation(new Vector3f(hFieldWidth, hFieldHeight, 500));
 
-        sceneController = new SceneController(stateManager, this, new Scene());
+        sceneController = new SceneController(stateManager, this, new MenuScene());
 
     }
 
