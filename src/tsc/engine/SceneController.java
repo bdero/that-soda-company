@@ -16,8 +16,8 @@ import com.jme3.scene.shape.Quad;
  * @author bdero
  */
 public class SceneController {
-    private AppStateManager stateManager;
-    private SimpleApplication app;
+    private final AppStateManager stateManager;
+    private final SimpleApplication app;
 
     private Scene currentScene;
     private Scene nextScene;
