@@ -8,7 +8,7 @@ import com.jme3.app.state.AppStateManager;
  *
  * @author bdero
  */
-public class Scene extends AbstractAppState {
+abstract public class Scene extends AbstractAppState {
 
     protected Application app;
     protected AppStateManager stateManager;
@@ -17,15 +17,23 @@ public class Scene extends AbstractAppState {
         super();
     }
 
+    abstract protected void sceneInit();
+    abstract protected void sceneUpdate(float tpf);
+
+    @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
 
         this.app = app;
         this.stateManager = stateManager;
+
+        sceneInit();
     }
 
     @Override
     public void update(float tpf) {
+        sceneUpdate(tpf);
+
         super.update(tpf);
     }
 
