@@ -8,7 +8,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import tsc.engine.SceneController;
-import tsc.engine.Scene;
 import tsc.scenes.MenuScene;
 
 /**

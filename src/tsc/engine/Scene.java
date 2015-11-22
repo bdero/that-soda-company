@@ -1,6 +1,7 @@
 package tsc.engine;
 
 import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 
@@ -10,7 +11,7 @@ import com.jme3.app.state.AppStateManager;
  */
 abstract public class Scene extends AbstractAppState {
 
-    protected Application app;
+    protected SimpleApplication app;
     protected AppStateManager stateManager;
 
     public Scene() {
@@ -24,7 +25,7 @@ abstract public class Scene extends AbstractAppState {
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
 
-        this.app = app;
+        this.app = (SimpleApplication)app;
         this.stateManager = stateManager;
 
         sceneInit();
