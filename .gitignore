@@ -1,6 +1,7 @@
 build/
 nbproject/private/
-*.so
+*\.so
+*\.blend1
 
 # Ignore generated build files
 /nbproject/build-impl.xml
