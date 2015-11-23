@@ -1,8 +1,5 @@
 package tsc.scenes;
 
-import com.jme3.light.PointLight;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import tsc.engine.Scene;
 
@@ -14,15 +11,10 @@ public class MenuScene extends Scene {
 
     @Override
     protected void sceneInit() {
-        Spatial bottle = app.getAssetManager().loadModel("Models/Bottle/Bottle.j3o");
-        bottle.setLocalTranslation(50, 25, 0);
-        bottle.scale(5);
-        app.getRootNode().attachChild(bottle);
-        PointLight light = new PointLight();
-        light.setPosition(new Vector3f(50, 50, 200));
-        light.setRadius(1000);
-        light.setColor(ColorRGBA.White);
-        app.getRootNode().addLight(light);
+        Spatial scene = app.getAssetManager().loadModel("Scenes/MenuScene.j3o");
+        scene.setLocalTranslation(app.width/2, app.height/2, 0);
+        app.getRootNode().attachChild(scene);
+        //app.getRootNode().addLight(light);
     }
 
     @Override

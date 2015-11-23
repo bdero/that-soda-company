@@ -18,6 +18,9 @@ public class Main extends SimpleApplication {
 
     private SceneController sceneController;
 
+    public float width;
+    public float height;
+
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
@@ -35,10 +38,10 @@ public class Main extends SimpleApplication {
         // Setup the camera to be orthographic and encapsulate a playing field with width 0 to 100, and scale the
         // height accordingly.
 
-        float fieldWidth = 100;
-        float fieldHeight = fieldWidth*((float)settings.getHeight()/settings.getWidth());
-        float hFieldWidth = fieldWidth/2;
-        float hFieldHeight = fieldHeight/2;
+        width = 100;
+        height = width*((float)settings.getHeight()/settings.getWidth());
+        float hFieldWidth = width/2;
+        float hFieldHeight = height/2;
 
         Camera camera = getCamera();
         camera.setParallelProjection(true);
@@ -49,8 +52,6 @@ public class Main extends SimpleApplication {
         sceneController = new SceneController(stateManager, this, new MenuScene());
 
     }
-
-    private float time = 0;
 
     @Override
     public void simpleUpdate(float tpf) {
